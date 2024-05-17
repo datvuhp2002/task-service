@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["mongoDb"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+<<<<<<< HEAD
+model Task {
+  task_id      String        @id @default(auto()) @map("_id") @db.ObjectId
+  description  String?
+  document     String[]
+  createdBy    String?       @db.ObjectId
+  modifiedBy   String?       @db.ObjectId
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime?     @updatedAt
+  deletedAt    DateTime?
+  deletedMark  Boolean       @default(false)
+  TaskProperty TaskProperty?
+=======
+model Project {
+  project_id      String           @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  projectCode     String           @unique
+  description     String?
+  startAt         DateTime         @default(now())
+  endAt           DateTime
+  turnover        String?
+  document        String[]
+  investor        String?
+  createdBy       String?          @db.ObjectId
+  modifiedBy      String?          @db.ObjectId
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime?        @updatedAt
+  status          Boolean?         @default(true)
+  deletedAt       DateTime?
+  deletedMark     Boolean          @default(false)
+  ProjectProperty ProjectProperty?
+>>>>>>> 5806bdd8535c4636411fe4005766ab4eb05caf0d
+}
+
+model TaskProperty {
+  task_property_id String    @id @default(auto()) @map("_id") @db.ObjectId
+  task_ownership   Task      @relation(fields: [task_id], references: [task_id])
+  task_id          String    @unique @db.ObjectId
+  createdBy        String?   @db.ObjectId
+  modifiedBy       String?   @db.ObjectId
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime? @updatedAt
+  deletedAt        DateTime?
+  deletedMark      Boolean   @default(false)
+}
